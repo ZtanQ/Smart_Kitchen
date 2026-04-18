@@ -1,0 +1,25 @@
+# Datos
+data/raw/
+data/interim/
+data/processed/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+
+# Tableau
+tableau/*.twb
+!tableau/.gitkeep
+
+# Outputs pesados
+outputs/*.csv
+!outputs/.gitkeep
+
+# OS / editores
+.DS_Store
+.vscode/
+.idea/
