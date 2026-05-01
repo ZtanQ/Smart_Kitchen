@@ -1,47 +1,71 @@
-# Runbook — SKI
+# Guía de Ejecución y Reproducibilidad (Runbook) - SKI Project
 
-Guía para reproducir el estado del proyecto en la Entrega 1.
+Este documento detalla los pasos necesarios para reproducir el pipeline de datos completo del proyecto, desde la ingesta de datos crudos hasta la generación de la matriz de características y el análisis de dimensionalidad (Entregas Semanas 3 y 5).
 
-## 1. Configuración del entorno
+## 1. Configuración del Entorno
+
+### 1.1. Dependencias del Sistema
+El pipeline requiere Python 3.9+ y las dependencias listadas en `requirements.txt`.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate      # macOS / Linux
-# .\.venv\Scripts\activate     # Windows
+# Crear y activar un entorno virtual
+python3 -m venv venv
+source venv/bin/activate
+
+# Instalar las dependencias de Python
 pip install -r requirements.txt
 ```
 
-## 2. Ingesta del catálogo
+### 1.2. Configuración de Credenciales (Obligatorio)
+
+El pipeline utiliza dos APIs que requieren autenticación:
+
+1.  **Kaggle API:** Para descargar el dataset de Instacart. Asegúrate de tener tu archivo `kaggle.json` en `~/.kaggle/kaggle.json`. Consulta la [guía de Kaggle](https://www.kaggle.com/docs/api) para obtener tus credenciales.
+
+2.  **USDA FoodData Central API:** Para enriquecer los datos con información nutricional.
+    *   Crea un archivo llamado `.env` en la raíz del proyecto.
+    *   Añade tu clave de API de la USDA (puedes obtener una [aquí](https://fdc.nal.usda.gov/api-key.html)) dentro del archivo de la siguiente manera:
+
+    ```.env
+    USDA_API_KEY="TU_CLAVE_API_AQUI"
+    ```
+
+## 2. Ejecución Completa del Pipeline de Datos
+
+El pipeline se ejecuta en una secuencia de scripts. Cada uno genera artefactos que son consumidos por el siguiente. Ejecútalos en el orden indicado.
+
+### Paso 1: Extracción de Patrones de Comportamiento
+Este script descarga un dataset público de Instacart para extraer patrones realistas de compra (distribución por horas, productos más comunes).
 
 ```bash
-python src/ingestion.py
+python src/extract_patterns.py
 ```
+*   **Entrada:** Dataset `yasserh/instacart-online-grocery-basket-analysis-dataset` de Kaggle.
+*   **Salida:** `data/raw/instacart_patterns.json`
 
-Descarga productos desde la API de OpenFoodFacts y genera
-`data/raw/catalog_raw.csv`. Ante errores 5xx o timeouts, cae
-automáticamente al catálogo de emergencia.
-
-## 3. Simulación de movimientos
+### Paso 2: Simulación Masiva de Movimientos
+Usando los patrones extraídos, este script simula el comportamiento de múltiples hogares durante 90 días para generar un volumen de datos transaccionales significativo.
 
 ```bash
 python src/simulation.py
 ```
+*   **Entrada:** `data/raw/instacart_patterns.json`
+*   **Salida:** `data/raw/movements_raw.csv`
 
-Lee el catálogo generado en el paso anterior y produce
-`data/raw/movements_raw.csv` con eventos simulados IN/OUT
-distribuidos entre las cuatro ubicaciones.
-
-## 4. Perfilado inicial
+### Paso 3: Enriquecimiento del Catálogo con Datos Nutricionales
+Este script toma los productos de la simulación y consulta la API de USDA para obtener datos nutricionales reales, construyendo el catálogo de productos.
 
 ```bash
-jupyter notebook notebooks/01_perfilado.ipynb
+python src/ingestion.py
 ```
+*   **Entradas:** `data/raw/movements_raw.csv`, API de USDA.
+*   **Salida:** `data/raw/catalog_raw.csv`
 
-Carga ambos CSV, verifica volúmenes, integridad referencial
-básica y produce las cifras reportadas en `data_dictionary.md`.
+### Paso 4: Preprocesamiento y Consolidación
+Unifica los movimientos simulados con la información del catálogo en un único dataset limpio y listo para el análisis. Utiliza Polars para un alto rendimiento.
 
-## 5. Próximos pasos (Entrega 2)
-
-- Enriquecer el catálogo con nutrientes adicionales.
-- Ampliar la simulación a 90 días y ≥2,500 eventos.
-- Perfilado formal completo y limpieza documentada en `changelog_data.md`.
+```bash
+python src/preprocessing.py
+```
+*   **Entradas:** `data/raw/movements_raw.csv`, `data/raw/catalog_raw.csv`.
+*   **Salida:** `data/processed/inventory_v1.csv`
