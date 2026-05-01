@@ -19,3 +19,6 @@ outputs/*.csv
 .DS_Store
 .vscode/
 .idea/
+
+# Credenciales y secretos
+.env

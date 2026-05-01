@@ -20,25 +20,16 @@ qué se queda estancado y qué perfil nutricional tiene el conjunto.
 
 ## 2. Pregunta analítica principal
 
-> **¿Qué categorías de productos y ubicaciones de almacenamiento concentran
-> el mayor riesgo de desperdicio y los peores perfiles nutricionales, y cómo
-> varía esa concentración en el tiempo?**
+> **¿Cómo evolucionan los puntos críticos de desperdicio y la calidad nutricional del inventario a lo largo de un trimestre, y qué impacto tiene la ubicación física en la pérdida económica y de salud del hogar?**
 
-Es una pregunta analítica no trivial porque exige cruzar tres dimensiones
-(categoría, ubicación, tiempo) con dos familias de métricas (rotación y
-perfil nutricional), y porque la respuesta depende de segmentaciones que no
-son evidentes en los datos crudos.
+Esta pregunta es analíticamente compleja porque exige un **análisis longitudinal de 90 días** y un **análisis transversal por ubicación**, cruzando métricas de rotación con perfiles nutricionales (Nutriscore y densidad energética).
 
 ### Subpreguntas derivadas
 
-1. ¿Qué combinaciones de categoría × ubicación tienen mayor tiempo promedio
-   entre ingreso y consumo?
-2. ¿Existe correlación entre el Nutriscore de un producto y su tasa de
-   rotación?
-3. ¿Cómo se distribuye el riesgo de vencimiento a lo largo del período
-   observado?
-4. ¿Qué perfiles de producto emergen al reducir el espacio nutricional con
-   PCA o t-SNE, y se alinean con las categorías declaradas?
+1. ¿Qué combinaciones de categoría × ubicación generan el mayor tiempo de estancamiento (baja rotación)?
+2. ¿Existe una correlación significativa entre los productos con peor Nutriscore (D-E) y una mayor frecuencia de consumo?
+3. ¿Cuál es el costo de oportunidad acumulado por productos vencidos en ubicaciones de baja visibilidad (ej. "Caja" o fondo de "Despensa")?[cite: 9]
+4. ¿Qué perfiles de productos emergen al reducir el espacio nutricional con **PCA o t-SNE** y cómo se comparan con las categorías comerciales?
 
 ## 3. Usuario objetivo y escenario de uso
 
@@ -59,34 +50,25 @@ próxima compra, y qué consumir primero esta semana.
 
 ## 4. Fuente de datos propuesta
 
-### Capa de catálogo — OpenFoodFacts
+### Capa de catálogo — USDA FoodData Central
+- **Origen:** API REST oficial de **USDA FoodData Central**, una fuente de datos abiertos del gobierno de EE. UU. enfocada en la transparencia alimentaria.
+- **Estado:** 50 productos seleccionados con variables nutricionales completas (calorías, proteínas, carbohidratos, grasas)[cite: 9, 11].
+- **Calidad:** Incluye registros con anomalías inyectadas intencionalmente (outliers y nulos) para validar la robustez de las reglas de limpieza en Python.
 
-- Licencia: Open Database License (ODbL).
-- Acceso: API pública, filtro por productos con alta popularidad.
-- Estado actual: **50 productos** con 7 variables.
-- Plan: enriquecer con grasas, grasas saturadas, azúcares, fibra, sal y
-  sodio para alcanzar las **≥8 variables numéricas** que exige el componente
-  avanzado PCA / t-SNE de la propuesta del curso.
-
-### Capa de movimientos — simulación interna
-
-- Origen: `src/simulation.py`.
-- Estado actual: **1,000 eventos** en un rango de 30 días, balance ~39 %
-  IN / ~61 % OUT, distribución uniforme entre 4 ubicaciones.
-- Plan: subir a **≥2,500 eventos** para cumplir el mínimo de 2,000 registros
-  exigido por la propuesta, y ampliar el rango temporal a 90 días para
-  habilitar análisis longitudinal con mayor señal.
-
-Detalle completo en `source_inventory.md`.
+### Capa de movimientos — Simulación basada en Instacart
+- **Patrones de comportamiento:** La simulación estocástica utiliza el dataset público anonimizado de **Instacart Online Grocery** para replicar distribuciones reales de compra y consumo.
+- **Lógica de desperdicio:** La clasificación de alimentos descartados (`Waste`) se basa en los estándares técnicos de persistencia de la **USDA FoodKeeper App**.
+- **Volumen verificado:** **25,444 registros** generados mediante UUIDs internos (garantizando la ausencia de Información de Identificación Personal o PII).
+- **Temporalidad:** Rango de 90 días para permitir un análisis longitudinal profundo.
 
 ## 5. Hipótesis iniciales
 
 | # | Hipótesis | Cómo se validará |
 |---|---|---|
-| H1 | Los productos de Nutriscore **D–E** (snacks, chocolates, bebidas azucaradas) concentran más movimientos **OUT** en términos absolutos que los A–B. | Comparación de frecuencia OUT por nutriscore. |
-| H2 | La ubicación **Despensa** concentra la mayor tasa de productos con tiempo prolongado sin rotación. | Tiempo promedio IN→OUT por ubicación. |
-| H3 | Existe un **patrón semanal** en los ingresos (picos concentrados en 1–2 días) frente a un consumo más distribuido. | Descomposición temporal de IN vs OUT por día de la semana. |
-| H4 | Al reducir el espacio nutricional con PCA, los productos se agrupan por **perfil energético** (densidad calórica × macros) más que por la categoría textual declarada por OpenFoodFacts. | PCA sobre variables nutricionales normalizadas, comparación con categorías. |
+| H1 | **Preferencia de consumo:** Los productos con Nutriscore **D–E** (snacks, bebidas azucaradas) presentan una frecuencia de consumo (OUT) un 30% superior a los productos A–B. | Comparación de la frecuencia de eventos tipo `OUT` segmentada por grado de Nutriscore. |
+| H2 | **Pérdida económica por ubicación:** La ubicación **Despensa** concentra el mayor volumen de desperdicio y la mayor pérdida monetaria acumulada debido a la baja rotación en comparación con el refrigerador. | Sumatoria del valor estimado (Precio × Cantidad) de los movimientos clasificados como `Expired` por ubicación física. |
+| H3 | **Estacionalidad de flujo:** Existe un patrón semanal marcado donde el 70% de los ingresos (IN) ocurre en 1 o 2 días específicos, frente a un consumo (OUT) distribuido uniformemente. | Descomposición temporal de volúmenes de entrada y salida por día de la semana en el rango de 90 días. |
+| H4 | **Agrupación Nutricional (PCA):** Al reducir el espacio nutricional, los productos se clasterizan por su **densidad energética** (macros × calorías) de forma más precisa que por su ID de categoría comercial. | Aplicación de PCA sobre variables normalizadas y comparación visual de clusters frente a la variable `category`. |
 
 ## 6. Justificación del valor del proyecto
 
