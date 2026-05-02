@@ -1,0 +1,73 @@
+{
+  "timestamp_ejecucion": "2026-05-01T19:04:26.454195",
+  "registros_iniciales": {
+    "catalog": 50,
+    "movements": 1000
+  },
+  "transformaciones": {
+    "deduplicacion": {
+      "duplicados_removidos": "0",
+      "registros_despues": 1000
+    },
+    "imputacion": {
+      "nutriscore_imputados": 0,
+      "proteins_imputadas": 0,
+      "carbs_imputados": 0,
+      "calories_imputadas": 0,
+      "expiry_date_nulos_mantendidos": "612"
+    },
+    "validacion_outliers": {
+      "outliers_detectados": 1,
+      "outliers_removidos": 1,
+      "umbral_calories_100g": 900,
+      "registros_catalog_despues": 49
+    },
+    "homologacion_categorias": {
+      "mapeo_aplicado": true,
+      "categorias_distintas": 7
+    },
+    "integridad_referencial": {
+      "huerfanos_detectados": 25,
+      "huerfanos_removidos": 25,
+      "registros_movements_despues": 975
+    },
+    "join": {
+      "tabla_izquierda": "movements",
+      "tabla_derecha": "catalog",
+      "tipo_join": "left",
+      "clave": "product_id",
+      "registros_resultado": 975
+    },
+    "derivadas": {
+      "dias_para_vencer_creada": true,
+      "columnas_finales": 13
+    }
+  },
+  "registros_finales": {
+    "catalog": 49,
+    "movements": 975,
+    "inventory_v1": 975
+  },
+  "calidad_datos": {
+    "nulos_por_columna": {
+      "event_id": 0,
+      "product_id": 0,
+      "product_name": 0,
+      "category_name": 0,
+      "timestamp": 0,
+      "action_type": 0,
+      "location": 0,
+      "expiry_date": 597,
+      "dias_para_vencer": 597,
+      "nutriscore": 0,
+      "calories_100g": 0,
+      "proteins_100g": 0,
+      "carbs_100g": 0
+    },
+    "cardinalidad_category_name": 7,
+    "rango_temporal": {
+      "min": "2026-03-17 21:30:53.484514",
+      "max": "2026-04-16 18:23:53.484514"
+    }
+  }
+}

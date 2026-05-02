@@ -1,55 +1,62 @@
+"""
+preprocessing.py
+
+Pipeline de limpieza y corrección de datos con detección de anomalías.
+Detecta y corrige:
+- Valores nulos
+- Duplicados
+- Valores atípicos
+- Inconsistencias lógicas
+- Errores de tipo
+
+Genera bitácora detallada de transformaciones y validación QA.
+
+Uso:
+    python src/preprocessing.py --input data/interim/movements_with_anomalies.csv \
+                               --catalog data/raw/catalog_raw.csv \
+                               --output data/processed/inventory_v1.csv
+"""
+
+import pandas as pd
 import polars as pl
+import numpy as np
 import os
+import json
+import logging
+from datetime import datetime
+from pathlib import Path
 
-def run_preprocessing():
-    print("🧹 Iniciando Pre-procesamiento (Polars) para alto volumen...")
-    
-    # 1. Definición de rutas EXACTAS
-    movements_path = "data/raw/movements_raw.csv"
-    catalog_path = "data/raw/catalog_raw.csv" 
-    output_path = "data/processed/inventory_v1.csv"
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
-    # Verificar existencia de archivos
-    if not os.path.exists(movements_path):
-        print(f"❌ Error: No se encuentra {movements_path}")
-        return
-    if not os.path.exists(catalog_path):
-        print(f"❌ Error: No se encuentra {catalog_path}")
-        return
 
-    # 2. Carga ultra-rápida con Polars
-    df_movements = pl.read_csv(movements_path)
-    df_catalog = pl.read_csv(catalog_path)
+class DataCleaner:
+    """Pipeline de limpieza y validación de datos con bitácora."""
 
-    # 3. Limpieza de columnas duplicadas en el catálogo
-    # Solo tomamos las métricas nutricionales y la categoría para evitar colisión de nombres
-    catalog_subset = df_catalog.select([
-        "product_id", 
-        "nutriscore", 
-        "calories_100g", 
-        "proteins_100g", 
-        "carbs_100g", 
-        "category"
-    ])
+    def __init__(self, movements_path, catalog_path, seed=42):
+        self.movements_path = movements_path
+        self.catalog_path = catalog_path
+        self.seed = seed
+        self.cleaning_log = {
+            "timestamp": datetime.now().isoformat(),
+            "input_file": movements_path,
+            "catalog_file": catalog_path,
+            "steps": []
+        }
+        self.df = None
+        self.df_catalog = None
 
-    # 4. Asegurar compatibilidad de tipos
-    df_movements = df_movements.with_columns(pl.col("product_id").cast(pl.Int64))
-    catalog_subset = catalog_subset.with_columns(pl.col("product_id").cast(pl.Int64))
+    def load_data(self):
+        """Carga datos de movimientos y catálogo."""
+        logger.info("📂 Cargando datos...")
 
-    # 5. Ejecutar el Join
-    inventory_v1 = df_movements.join(
-        catalog_subset,
-        on="product_id",
-        how="left"
-    )
+        if not os.path.exists(self.movements_path):
+            raise FileNotFoundError(f"No se encuentra {self.movements_path}")
+        if not os.path.exists(self.catalog_path):
+            raise FileNotFoundError(f"No se encuentra {self.catalog_path}")
 
-    # 6. Guardar el resultado
-    os.makedirs("data/processed", exist_ok=True)
-    inventory_v1.write_csv(output_path)
-    
-    print(f"✅ ¡Dataset consolidado con éxito!")
-    print(f"📁 Archivo generado: {output_path}")
-    print(f"📊 Total de registros procesados: {len(inventory_v1)}")
-
-if __name__ == "__main__":
-    run_preprocessing()
+        self.df = pd.read_csv(self.move
