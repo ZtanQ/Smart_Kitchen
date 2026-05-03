@@ -11,8 +11,8 @@
 | Unidad de análisis | Producto comercial identificado por código de barras |
 | Cobertura | Global, con sesgo hacia productos europeos y de alta popularidad |
 | Variables actuales | 7 (ver `data_dictionary.md`) |
-| Variables objetivo | ≥11 tras enriquecimiento (grasas, saturadas, azúcares, fibra, sal, sodio) |
-| Registros actuales | 50 productos |
+| Variables actuales | 7 (`product_id`, `product_name`, `category`, `nutriscore`, `calories_100g`, `proteins_100g`, `carbs_100g`) |
+| Registros actuales | 50 productos (IDs Instacart, nutrición USDA FoodData Central) |
 | Actualización | Continua del lado de la fuente; snapshot local congelado por entrega |
 
 **Limitaciones conocidas:**
@@ -28,20 +28,24 @@
 | Origen | Simulación interna (`src/simulation.py`) |
 | Unidad de análisis | Evento de ingreso o consumo |
 | Licencia | Interno del proyecto |
-| Rango temporal actual | 17-mar-2026 a 16-abr-2026 (30 días) |
-| Rango temporal objetivo | 90 días |
-| Registros actuales | 1,000 eventos |
-| Registros objetivo | ≥2,500 eventos |
-| Distribución IN/OUT | 388 / 612 (~39 % / ~61 %) |
-| Ubicaciones | Refrigerador, Estantería, Despensa, Caja (distribución uniforme) |
+| Rango temporal | 01-feb-2026 a 01-may-2026 (90 días) |
+| Registros | 25,819 eventos |
+| Hogares simulados | 10 (`household_id` 0–9) |
+| Distribución IN/OUT | 11,581 / 14,238 (~45 % / ~55 %) |
+| Clasificación eventos | Purchase 11,581 · Consumption 9,185 · Forced_Waste 3,531 · Waste 1,522 |
+| Patrones de compra | Distribución horaria real de Instacart (via `src/extract_patterns.py`) |
 | Integridad referencial | 100 % — todos los `product_id` existen en el catálogo |
+
+**Cambios de esquema respecto a Entrega 1:**
+
+- `action_type` renombrado a `event_type`; columna `location` eliminada
+- Nuevas columnas: `household_id`, `stock_id`, `classification`
+- `expiry_date` presente en **todos** los eventos (IN y OUT)
 
 **Limitaciones conocidas:**
 
 - Son datos sintéticos; no representan conducta real de usuarios (ver R4).
-- La distribución actual es uniforme en el tiempo; hay que introducir
-  estacionalidad semanal plausible antes del análisis longitudinal.
-- `expiry_date` solo existe en eventos `IN` (612 nulos estructurales en `OUT`).
+- La estacionalidad semanal se deriva de patrones Instacart, no de observación directa.
 
 ## Estrategia de resiliencia (API)
 

@@ -97,7 +97,7 @@ def build_catalog_from_movements():
     
     os.makedirs("data/raw", exist_ok=True)
     df_catalog.to_csv("data/raw/catalog_raw.csv", index=False)
-    print(f"✅ Catálogo generado con {len(df_catalog)} registros alineados.")
+    print(f"Catalogo generado con {len(df_catalog)} registros alineados.")
 
 if __name__ == "__main__":
     build_catalog_from_movements()

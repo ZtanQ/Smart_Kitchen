@@ -28,7 +28,7 @@ def run_massive_simulation(num_households=10, days=90):
     """
     Simula múltiples hogares para generar un volumen de datos robusto (Escala Horizontal).
     """
-    print(f"🚀 Iniciando simulación masiva: {num_households} hogares durante {days} días...")
+    print(f"Iniciando simulacion masiva: {num_households} hogares durante {days} dias...")
     
     hour_dist, products_pool = load_patterns()
     movements = []
@@ -37,7 +37,7 @@ def run_massive_simulation(num_households=10, days=90):
     base_start_date = datetime.now() - timedelta(days=days)
 
     for h_id in range(num_households):
-        print(f"🏠 Simulando Hogar ID: {h_id}...")
+        print(f"Simulando Hogar ID: {h_id}...")
         inventory = [] # Cada hogar tiene su propio inventario independiente
         
         for d in range(days):
@@ -137,8 +137,8 @@ def run_massive_simulation(num_households=10, days=90):
     os.makedirs("data/raw", exist_ok=True)
     df_movements.to_csv("data/raw/movements_raw.csv", index=False)
     
-    print(f"\n✅ ¡Éxito! Se generaron {len(df_movements)} eventos transaccionales.")
-    print(f"📊 Volumen final: {df_movements.memory_usage().sum() / 1024**2:.2f} MB en disco.")
+    print(f"\nExito! Se generaron {len(df_movements)} eventos transaccionales.")
+    print(f"Volumen final: {df_movements.memory_usage().sum() / 1024**2:.2f} MB en disco.")
     print(df_movements['classification'].value_counts())
 
 if __name__ == "__main__":
