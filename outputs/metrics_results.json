@@ -1,0 +1,49 @@
+{
+  "lr": {
+    "acc": 0.5779494382022472,
+    "prec": 0.4309472161966739,
+    "rec": 0.5895153313550939,
+    "f1": 0.4979114452798663,
+    "auc": 0.6231392084996449,
+    "cv_mean": 0.49036526873448205,
+    "cv_std": 0.016468017039049068
+  },
+  "rf": {
+    "acc": 0.550561797752809,
+    "prec": 0.41588492808005,
+    "rec": 0.6577645895153313,
+    "f1": 0.5095785440613027,
+    "auc": 0.6180837677221764,
+    "cv_mean": 0.5026813469806102,
+    "cv_std": 0.007146170711121909
+  },
+  "mejora_f1_pct": 2.3,
+  "mejora_auc_pct": -0.8,
+  "top5_features": [
+    {
+      "feature": "quantity",
+      "importance": 0.24646793737237627
+    },
+    {
+      "feature": "category_name_Frutas y Verduras",
+      "importance": 0.24324997898019765
+    },
+    {
+      "feature": "location_Refrigerador",
+      "importance": 0.07843380337527842
+    },
+    {
+      "feature": "carbs_100g",
+      "importance": 0.07535929910041532
+    },
+    {
+      "feature": "category_name_Bebidas",
+      "importance": 0.07438545331912141
+    }
+  ],
+  "n_train": 11390,
+  "n_test": 2848,
+  "n_out_events": 14238,
+  "balance_consumo_pct": 64.5,
+  "balance_desperdicio_pct": 35.5
+}

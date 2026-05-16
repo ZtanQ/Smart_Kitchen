@@ -63,3 +63,31 @@ reemplazada por el dataset multi-hogar v2 con las siguientes mejoras:
 | Multi-hogar | No | Si (household_id 0-9) |
 | location | Presente en crudo (simulada directamente) | Derivada desde dept_id del catalogo |
 | expiry_date nulos | 612 nulos estructurales (solo OUT) | 0 nulos (todos los eventos tienen fecha) |
+
+---
+
+## Entrega 3 — Modelado, Métricas y Preprocesamiento (Semana 7, ejecutado 2026-05-15)
+
+### Decisiones de modelado
+
+| Fecha | Decisión | Justificación |
+|---|---|---|
+| 2026-05-15 | **Problema definido como clasificación binaria** sobre eventos OUT | Los eventos IN son siempre Purchase; solo los OUT pueden ser Waste, Forced_Waste o Consumption. Clasificar IN no tiene sentido analítico. |
+| 2026-05-15 | **Target: `is_waste`** = 1 si classification ∈ {Waste, Forced_Waste}, 0 si Consumption | Agrupa ambos tipos de pérdida en una sola señal binaria. Forzado_Waste y Waste comparten la consecuencia de no consumir el alimento productivamente. |
+| 2026-05-15 | **`household_id` excluido** de las features | Es un ID sintético sin información generalizable. Su inclusión generaría overfitting a patrones de hogares simulados que no existirán en producción. |
+| 2026-05-15 | **`dias_para_vencer` excluida — leakage confirmado** | Verificación empírica: todos los Forced_Waste tienen `dias_para_vencer < 0` y todos los Waste también (mediana -3 y -2 respectivamente vs +5 de Consumo). El simulador usó esta variable como criterio de asignación de etiquetas. Con ella incluida, ambos modelos alcanzaban F1=1.0 y AUC=1.0 trivialmente. Se excluye del modelado. Se conserva en `inventory_v1.csv` para uso en Tableau. |
+| 2026-05-15 | **`action_type` excluido** tras el filtro | Es constante (todos son OUT) dentro del subconjunto de modelado. No aporta información predictiva. |
+| 2026-05-15 | **Imputación con mediana** para variables numéricas | Robusta ante los outliers observados en `calories_100g` y `dias_para_vencer` negativos. La media se desplazaría por los extremos. |
+| 2026-05-15 | **OrdinalEncoder [A→0, E→4]** para Nutriscore | Nutriscore tiene un orden semántico real (A mejor que E). OHE ignoraría esa relación y generaría 5 columnas redundantes. |
+| 2026-05-15 | **class_weight='balanced'** en ambos modelos | El target está desbalanceado (~65% Consumo / ~35% Desperdicio). Sin corrección, los modelos optimizan accuracy trivial prediciendo siempre Consumo. |
+| 2026-05-15 | **F1-Score como métrica primaria**, no Accuracy | Un clasificador trivial (siempre predice Consumo) obtendría ~65% de accuracy — sin detectar ninguna pérdida real. F1 penaliza por igual la baja Precision y el bajo Recall. |
+| 2026-05-15 | **Random Forest seleccionado** sobre Regresión Logística | RF superior en F1, Recall y ROC-AUC. La relación entre `dias_para_vencer` y desperdicio tiene un umbral no lineal que LR no puede capturar. Baja varianza en CV confirma estabilidad. |
+
+### Artefactos generados
+
+| Artefacto | Ruta | Descripción |
+|---|---|---|
+| Notebook | `notebooks/03_modelo_metricas.ipynb` | Pipeline completo reproducible |
+| Tabla comparativa | `semana7/tabla_comparativa_modelos.md` | Análisis cualitativo y cuantitativo de ambos modelos |
+| Métricas CSV | `outputs/metricas_modelos.csv` | Generado al ejecutar el notebook |
+| Gráficas | `outputs/lr_confusion_roc.png`, `rf_confusion_roc.png`, `rf_feature_importance.png`, `comparacion_roc.png` | Generadas al ejecutar el notebook |
