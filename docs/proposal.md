@@ -116,4 +116,4 @@ Para alinearse con la secuencia real evaluada por la facultad en este periodo le
 * **Entrega 1 (Semana 3):** Propuesta de proyecto inicial, definición del problema, usuario objetivo y mapeo de riesgos de fuentes base.
 * **Entrega 2 (Semana 5):** Perfilado, diccionario de datos estructurado e implementación del pipeline v2 en Polars con bitácora cuantitativa.
 * **Entrega 3 (Semana 7):** Pipeline experimental de modelado predictivo, validación de data leakage y reporte de métricas optimizadas.
-* **Entrega 5 (Semana 11 - Hito Actual):** Construcción y despliegue del Dashboard Engineering Alpha en Tableau, inyección relacional de Star Schema, matriz formal de descarte de gráficos e insights de negocio de valor agregado.
+* **Entrega 4 (Semana 11 - Hito Actual):** Construcción y despliegue del Dashboard Engineering Alpha en Tableau, inyección relacional de Star Schema, matriz formal de descarte de gráficos e insights de negocio de valor agregado.
