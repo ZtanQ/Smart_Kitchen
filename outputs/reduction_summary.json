@@ -1,0 +1,12 @@
+{
+  "dim_original": 61,
+  "n_registros": 25819,
+  "componentes_para_90pct": 29,
+  "pca_var_pc1": 0.08031810583558141,
+  "pca_var_pc2": 0.06758571443450284,
+  "pca_var_pc3": 0.05588636508810924,
+  "tsne_sample_size": 5000,
+  "tsne_perplexity": 30,
+  "tsne_pre_pca_dims": 30,
+  "random_state": 42
+}
