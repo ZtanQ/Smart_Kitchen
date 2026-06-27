@@ -1,0 +1,12 @@
+{
+  "fact_filas": 25819,
+  "fact_pk_unica": true,
+  "dim_hogar_pk_unica": true,
+  "suma_is_out_fact": 14238,
+  "suma_eventos_out_dim_hogar": 14238,
+  "suma_waste_fact": 5053,
+  "suma_waste_dim_hogar": 5053,
+  "suma_waste_agg_cat": 5053,
+  "cuadre_total_eventos_OUT": true,
+  "cuadre_total_waste": true
+}

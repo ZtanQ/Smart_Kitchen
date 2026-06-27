@@ -1,0 +1,83 @@
+semana_iso,category_name,eventos_out,eventos_waste,unidades_waste,tasa_desperdicio
+2026-W05,Bebidas,1,0,0,0.0
+2026-W05,Despensa General,2,0,0,0.0
+2026-W05,Frutas y Verduras,24,0,0,0.0
+2026-W05,Lacteos y Refrigerados,2,0,0,0.0
+2026-W06,Bebidas,17,0,0,0.0
+2026-W06,Congelados,12,0,0,0.0
+2026-W06,Despensa General,21,0,0,0.0
+2026-W06,Frutas y Verduras,535,0,0,0.0
+2026-W06,Lacteos y Refrigerados,71,0,0,0.0
+2026-W06,Panaderia y Granos,19,0,0,0.0
+2026-W07,Bebidas,30,0,0,0.0
+2026-W07,Congelados,21,0,0,0.0
+2026-W07,Despensa General,11,0,0,0.0
+2026-W07,Frutas y Verduras,693,79,125,0.114
+2026-W07,Lacteos y Refrigerados,111,0,0,0.0
+2026-W07,Panaderia y Granos,19,0,0,0.0
+2026-W08,Bebidas,37,0,0,0.0
+2026-W08,Congelados,32,1,1,0.0312
+2026-W08,Despensa General,17,0,0,0.0
+2026-W08,Frutas y Verduras,886,286,444,0.3228
+2026-W08,Lacteos y Refrigerados,115,13,19,0.113
+2026-W08,Panaderia y Granos,15,0,0,0.0
+2026-W09,Bebidas,27,0,0,0.0
+2026-W09,Congelados,25,6,8,0.24
+2026-W09,Despensa General,27,7,10,0.2593
+2026-W09,Frutas y Verduras,931,385,625,0.4135
+2026-W09,Lacteos y Refrigerados,124,29,46,0.2339
+2026-W09,Panaderia y Granos,15,3,6,0.2
+2026-W10,Bebidas,35,0,0,0.0
+2026-W10,Congelados,22,3,3,0.1364
+2026-W10,Despensa General,25,8,10,0.32
+2026-W10,Frutas y Verduras,1000,466,751,0.466
+2026-W10,Lacteos y Refrigerados,116,27,41,0.2328
+2026-W10,Panaderia y Granos,28,8,16,0.2857
+2026-W11,Bebidas,50,2,4,0.04
+2026-W11,Congelados,25,5,6,0.2
+2026-W11,Despensa General,29,4,6,0.1379
+2026-W11,Frutas y Verduras,1027,570,958,0.555
+2026-W11,Lacteos y Refrigerados,115,41,71,0.3565
+2026-W11,Panaderia y Granos,30,5,8,0.1667
+2026-W12,Bebidas,66,5,10,0.0758
+2026-W12,Congelados,23,14,21,0.6087
+2026-W12,Despensa General,19,8,12,0.4211
+2026-W12,Frutas y Verduras,926,456,773,0.4924
+2026-W12,Lacteos y Refrigerados,158,44,69,0.2785
+2026-W12,Panaderia y Granos,30,9,15,0.3
+2026-W13,Bebidas,60,2,3,0.0333
+2026-W13,Congelados,22,7,11,0.3182
+2026-W13,Despensa General,23,7,8,0.3043
+2026-W13,Frutas y Verduras,924,465,758,0.5032
+2026-W13,Lacteos y Refrigerados,120,39,59,0.325
+2026-W13,Panaderia y Granos,30,6,8,0.2
+2026-W14,Bebidas,45,5,7,0.1111
+2026-W14,Congelados,22,4,7,0.1818
+2026-W14,Despensa General,17,7,9,0.4118
+2026-W14,Frutas y Verduras,878,372,613,0.4237
+2026-W14,Lacteos y Refrigerados,113,26,42,0.2301
+2026-W14,Panaderia y Granos,29,5,9,0.1724
+2026-W15,Bebidas,63,2,2,0.0317
+2026-W15,Congelados,20,1,2,0.05
+2026-W15,Despensa General,23,3,5,0.1304
+2026-W15,Frutas y Verduras,957,421,685,0.4399
+2026-W15,Lacteos y Refrigerados,130,20,37,0.1538
+2026-W15,Panaderia y Granos,20,2,2,0.1
+2026-W16,Bebidas,45,3,4,0.0667
+2026-W16,Congelados,24,8,12,0.3333
+2026-W16,Despensa General,26,4,7,0.1538
+2026-W16,Frutas y Verduras,884,353,565,0.3993
+2026-W16,Lacteos y Refrigerados,142,34,48,0.2394
+2026-W16,Panaderia y Granos,27,10,16,0.3704
+2026-W17,Bebidas,49,4,6,0.0816
+2026-W17,Congelados,26,5,9,0.1923
+2026-W17,Despensa General,24,6,9,0.25
+2026-W17,Frutas y Verduras,922,407,642,0.4414
+2026-W17,Lacteos y Refrigerados,117,27,42,0.2308
+2026-W17,Panaderia y Granos,28,5,11,0.1786
+2026-W18,Bebidas,35,0,0,0.0
+2026-W18,Congelados,19,7,13,0.3684
+2026-W18,Despensa General,12,5,6,0.4167
+2026-W18,Frutas y Verduras,695,265,456,0.3813
+2026-W18,Lacteos y Refrigerados,86,31,55,0.3605
+2026-W18,Panaderia y Granos,17,1,1,0.0588

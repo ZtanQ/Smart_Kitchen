@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- Minimal SKI workbook generado 2026-06-27T05:30:34 -->
+<workbook original-version='18.1' source-build='2026.2.0 (20262.26.0603.1643)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='kpi_por_hogar' inline='true' name='federated.c2c2c6d2b983937249ef882f' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='kpi_por_hogar' name='textscan.c2c2c6d2b983937249ef882f'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales' filename='kpi_por_hogar.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.c2c2c6d2b983937249ef882f' name='kpi_por_hogar.csv' table='[kpi_por_hogar#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='integer' name='household_id' ordinal='0' />
+            <column datatype='string' name='segmento_hogar' ordinal='1' />
+            <column datatype='string' name='ubicacion_critica' ordinal='2' />
+            <column datatype='real' name='kpi1_costo_perdido_soles' ordinal='3' />
+            <column datatype='real' name='kpi2_tasa_desperdicio' ordinal='4' />
+            <column datatype='real' name='kpi3_pct_nutriscore_DE' ordinal='5' />
+            <column datatype='real' name='kpi4_dias_prom_vencer' ordinal='6' />
+            <column datatype='integer' name='total_eventos_out' ordinal='7' />
+            <column datatype='integer' name='total_eventos_waste' ordinal='8' />
+            <column datatype='real' name='costo_total_perdido' ordinal='9' />
+            <column datatype='real' name='costo_total_compras' ordinal='10' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='agg_temporal_ubicacion' inline='true' name='federated.0def458b57733ae710a7ac1d' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='agg_temporal_ubicacion' name='textscan.0def458b57733ae710a7ac1d'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales' filename='agg_temporal_ubicacion.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0def458b57733ae710a7ac1d' name='agg_temporal_ubicacion.csv' table='[agg_temporal_ubicacion#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='integer' name='household_id' ordinal='0' />
+            <column datatype='string' name='semana_iso' ordinal='1' />
+            <column datatype='string' name='location' ordinal='2' />
+            <column datatype='integer' name='eventos_out' ordinal='3' />
+            <column datatype='integer' name='eventos_waste' ordinal='4' />
+            <column datatype='integer' name='eventos_consumo' ordinal='5' />
+            <column datatype='real' name='costo_perdido' ordinal='6' />
+            <column datatype='real' name='costo_consumido' ordinal='7' />
+            <column datatype='real' name='tasa_desperdicio' ordinal='8' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='agg_ubicacion_nutriscore' inline='true' name='federated.86590a01b754131c81398b15' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='agg_ubicacion_nutriscore' name='textscan.86590a01b754131c81398b15'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales' filename='agg_ubicacion_nutriscore.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.86590a01b754131c81398b15' name='agg_ubicacion_nutriscore.csv' table='[agg_ubicacion_nutriscore#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='integer' name='household_id' ordinal='0' />
+            <column datatype='string' name='location' ordinal='1' />
+            <column datatype='string' name='nutriscore' ordinal='2' />
+            <column datatype='string' name='nutriscore_grupo' ordinal='3' />
+            <column datatype='string' name='tipo_salida' ordinal='4' />
+            <column datatype='integer' name='eventos' ordinal='5' />
+            <column datatype='real' name='costo' ordinal='6' />
+            <column datatype='integer' name='unidades' ordinal='7' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='insights_prescriptivos' inline='true' name='federated.4a0316b81591e1c0abbfc9e2' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='insights_prescriptivos' name='textscan.4a0316b81591e1c0abbfc9e2'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales' filename='insights_prescriptivos.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.4a0316b81591e1c0abbfc9e2' name='insights_prescriptivos.csv' table='[insights_prescriptivos#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='integer' name='household_id' ordinal='0' />
+            <column datatype='string' name='segmento_hogar' ordinal='1' />
+            <column datatype='string' name='eje' ordinal='2' />
+            <column datatype='integer' name='orden' ordinal='3' />
+            <column datatype='string' name='titulo' ordinal='4' />
+            <column datatype='string' name='mensaje' ordinal='5' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='fact_con_precio' inline='true' name='federated.1bd4e02542a4c41ec05943f0' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='fact_con_precio' name='textscan.1bd4e02542a4c41ec05943f0'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales' filename='fact_con_precio.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.1bd4e02542a4c41ec05943f0' name='fact_con_precio.csv' table='[fact_con_precio#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='string' name='event_id' ordinal='0' />
+            <column datatype='integer' name='household_id' ordinal='1' />
+            <column datatype='integer' name='product_id' ordinal='2' />
+            <column datatype='string' name='product_name' ordinal='3' />
+            <column datatype='string' name='action_type' ordinal='4' />
+            <column datatype='string' name='classification' ordinal='5' />
+            <column datatype='integer' name='quantity' ordinal='6' />
+            <column datatype='date' name='fecha' ordinal='7' />
+            <column datatype='string' name='semana_iso' ordinal='8' />
+            <column datatype='string' name='mes' ordinal='9' />
+            <column datatype='string' name='dia_semana' ordinal='10' />
+            <column datatype='integer' name='hora' ordinal='11' />
+            <column datatype='string' name='turno' ordinal='12' />
+            <column datatype='date' name='expiry_date' ordinal='13' />
+            <column datatype='integer' name='dias_para_vencer' ordinal='14' />
+            <column datatype='string' name='location' ordinal='15' />
+            <column datatype='string' name='category_name' ordinal='16' />
+            <column datatype='string' name='nutriscore' ordinal='17' />
+            <column datatype='real' name='calories_100g' ordinal='18' />
+            <column datatype='string' name='bucket_calorico' ordinal='19' />
+            <column datatype='integer' name='is_out' ordinal='20' />
+            <column datatype='integer' name='is_in' ordinal='21' />
+            <column datatype='integer' name='is_waste' ordinal='22' />
+            <column datatype='integer' name='is_forced_waste' ordinal='23' />
+            <column datatype='integer' name='is_consumo' ordinal='24' />
+            <column datatype='integer' name='is_vencido' ordinal='25' />
+            <column datatype='integer' name='flag_riesgo_vencer' ordinal='26' />
+            <column datatype='real' name='precio_unitario' ordinal='27' />
+            <column datatype='real' name='costo_evento' ordinal='28' />
+            <column datatype='real' name='costo_perdido' ordinal='29' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='tsne_sample_tableau' inline='true' name='federated.4f79da40431e4f1da586a715' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='tsne_sample_tableau' name='textscan.4f79da40431e4f1da586a715'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/outputs' filename='tsne_sample_tableau.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.4f79da40431e4f1da586a715' name='tsne_sample_tableau.csv' table='[tsne_sample_tableau#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='string' name='event_id' ordinal='0' />
+            <column datatype='integer' name='household_id' ordinal='1' />
+            <column datatype='string' name='product_name' ordinal='2' />
+            <column datatype='string' name='action_type' ordinal='3' />
+            <column datatype='string' name='category_name' ordinal='4' />
+            <column datatype='string' name='location' ordinal='5' />
+            <column datatype='string' name='nutriscore' ordinal='6' />
+            <column datatype='datetime' name='timestamp' ordinal='7' />
+            <column datatype='integer' name='dias_para_vencer' ordinal='8' />
+            <column datatype='real' name='calories_100g' ordinal='9' />
+            <column datatype='real' name='tsne_1' ordinal='10' />
+            <column datatype='real' name='tsne_2' ordinal='11' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='pca_components_tableau' inline='true' name='federated.39192e3ad255ef32b9c42611' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='pca_components_tableau' name='textscan.39192e3ad255ef32b9c42611'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/outputs' filename='pca_components_tableau.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.39192e3ad255ef32b9c42611' name='pca_components_tableau.csv' table='[pca_components_tableau#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='string' name='event_id' ordinal='0' />
+            <column datatype='integer' name='household_id' ordinal='1' />
+            <column datatype='string' name='product_name' ordinal='2' />
+            <column datatype='string' name='action_type' ordinal='3' />
+            <column datatype='string' name='category_name' ordinal='4' />
+            <column datatype='string' name='location' ordinal='5' />
+            <column datatype='string' name='nutriscore' ordinal='6' />
+            <column datatype='real' name='PC1' ordinal='7' />
+            <column datatype='real' name='PC2' ordinal='8' />
+            <column datatype='real' name='PC3' ordinal='9' />
+            <column datatype='real' name='PC4' ordinal='10' />
+            <column datatype='real' name='PC5' ordinal='11' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+    <datasource caption='pca_variance_table' inline='true' name='federated.97cdb27473e555424bd8872e' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='pca_variance_table' name='textscan.97cdb27473e555424bd8872e'>
+            <connection class='textscan' directory='C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/outputs' filename='pca_variance_table.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.97cdb27473e555424bd8872e' name='pca_variance_table.csv' table='[pca_variance_table#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='es_PE' separator=','>
+            <column datatype='string' name='componente' ordinal='0' />
+            <column datatype='real' name='varianza_explicada' ordinal='1' />
+            <column datatype='real' name='varianza_acumulada' ordinal='2' />
+          </columns>
+        </relation>
+      </connection>
+      <aliases enabled='yes' />
+    </datasource>
+  </datasources>
+</workbook>

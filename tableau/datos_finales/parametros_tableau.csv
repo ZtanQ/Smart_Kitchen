@@ -1,0 +1,8 @@
+parametro,valor,tipo,descripcion
+umbral_riesgo_dias,2.0,int,Días <= valor → flag_riesgo_vencer
+umbral_segmento_q33,0.3401,float,Tasa_desperdicio ≤ valor → Eficiente
+umbral_segmento_q66,0.3798,float,Tasa_desperdicio ≤ valor → Promedio
+cutoff_calorico_bajo,50.0,int,cal/100g ≤ valor → Bajo
+cutoff_calorico_medio,150.0,int,cal/100g ≤ valor → Medio
+cutoff_calorico_alto,300.0,int,cal/100g ≤ valor → Alto
+ventana_temporal_dias,90.0,int,Cobertura del dataset (Feb-May 2026)

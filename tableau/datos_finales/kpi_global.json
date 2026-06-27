@@ -1,0 +1,11 @@
+{
+  "kpi1_ubicacion_critica": "Refrigerador",
+  "kpi1_costo_critica_soles": 37567.5,
+  "kpi2_tasa_desperdicio": 0.3549,
+  "kpi3_pct_nutriscore_DE": 0.1925,
+  "kpi4_dias_prom_vencer": -2.68,
+  "total_eventos": 25819,
+  "total_out": 14238,
+  "total_waste": 5053,
+  "costo_total_perdido_soles": 38830.5
+}
