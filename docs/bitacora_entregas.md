@@ -91,3 +91,43 @@ reemplazada por el dataset multi-hogar v2 con las siguientes mejoras:
 | Tabla comparativa | `semana7/tabla_comparativa_modelos.md` | Análisis cualitativo y cuantitativo de ambos modelos |
 | Métricas CSV | `outputs/metricas_modelos.csv` | Generado al ejecutar el notebook |
 | Gráficas | `outputs/lr_confusion_roc.png`, `rf_confusion_roc.png`, `rf_feature_importance.png`, `comparacion_roc.png` | Generadas al ejecutar el notebook |
+
+---
+
+## Entrega 4 — Segmentación, Cálculos Analíticos y Fuentes para Tableau (Semana 11, ejecutado 2026-05-30)
+
+### Decisiones de modelado y cálculo relacional
+
+| Fecha | Decisión | Justificación |
+|---|---|---|
+| 2026-05-30 | **Estructuració n formal en Modelo en Estrella (Star Schema)** | Se rechazó la exportación de una tabla plana pre-joinzada para evitar errores de duplicación de métricas al realizar agregaciones multi-hogar en Tableau. `fact_inventory` (25,819 filas) actúa como núcleo transaccional, conectada mediante relaciones lógicas a tres dimensiones atómicas independientes (`Dim_Producto`, `Dim_Hogar`, `Dim_Tiempo`), optimizando la memoria caché del motor Hyper y las consultas VizQL. |
+| 2026-05-30 | **Cálculo inyectado de `Costo de Pérdida`** | Automatización en Python de métricas derivadas calculadas al multiplicar la cantidad transaccionada por el precio estimado del producto. Este cálculo se filtra de forma estricta para eventos donde `classification` ∈ {Waste, Forced_Waste}, liberando a Tableau de procesamientos de strings en tiempo de ejecución. |
+| 2026-05-30 | **Validación de la segmentación por `household_id`** | Auditoría lógica del pipeline para certificar que el rango integro de IDs sintéticos (0-9) esté perfectamente mapeado y balanceado temporalmente, garantizando la ausencia de registros huérfanos o transacciones nulas antes de la conexión a Tableau. |
+
+### Artefactos generados
+
+| Artefacto | Ruta | Descripción |
+|---|---|---|
+| Dataset de Hechos | `data/processed/fact_inventory.csv` | Tabla de hechos nucleares limpia y tipificada para la capa visual (25,819 filas) |
+| Tablas de Dimensiones | `data/processed/dim_products.csv`, `dim_households.csv`, `dim_time.csv` | Archivos de dimensiones atómicas optimizados para establecer las conexiones lógicas (*Relationships*) |
+| Script Semidefinitivo | `src/export_star_schema.py` | Pipeline reproducible en Python que ejecuta la separación relacional sin pérdidas de granularidad |
+
+---
+
+## Entrega 5 — Dashboard Alpha y Visualización Exploratoria (Semana 13, ejecutado 2026-06-13)
+
+### Decisiones de diseño visual e interactividad
+
+| Fecha | Decisión | Justificación |
+|---|---|---|
+| 2026-06-13 | **Aislamiento absoluto de la variable de fuga (Data Leakage)** | La variable `dias_para_vencer` fue reintroducida **únicamente en la capa de visualización interactiva de Tableau** como indicador operativo de monitoreo de alarmas semanales. Al quedar completamente excluida del pipeline de Machine Learning (Entrega 3), se cumple con el requerimiento de control de fugas sin privar al usuario final de su principal variable de gestión de inventario. |
+| 2026-06-13 | **Arquitectura de Layout estructurado en 3 Bloques** | Organización visual limpia en Tableau basada en la carga cognitiva del usuario: Bloque 1 (Contexto macro y KPIs vía BANs), Bloque 2 (Módulo longitudinal temporal con gráfico de líneas dual sincronizado) y Bloque 3 (Módulo transversal comparativo mediante barras horizontales agrupadas). |
+| 2026-06-13 | **Reemplazo estratégico del Gráfico de Torta** | El gráfico de torta analizado en los prototipos preliminares fue formalmente descartado. Al contar con 6 categorías comerciales con volúmenes dinámicos similares, provocaba ambigüedad angular. Se sustituyó por un gráfico de barras horizontales agrupadas por ubicación física (`location`), eliminando el truncamiento del texto cualitativo y optimizando la decodificación de mermas de un vistazo. |
+| 2026-06-13 | **Configuración de Acción Global de Filtrado Interactiva** | Implementación técnica nativa basada en el parámetro `household_id`. Al seleccionar un hogar específico (0-9) en la interfaz, el motor VizQL propaga la agregación de forma dinámica a través de las llaves foráneas del Star Schema, recalculando todas las hojas analíticas útiles sin corromper la granularidad del dataset base. |
+
+### Artefactos generados
+
+| Artefacto | Ruta | Descripción |
+|---|---|---|
+| Workbook Empaquetado | `tableau/Sem12_Dashboard_SmartKitchen.twbx` | Archivo funcional final de Tableau conteniendo las 8 hojas analíticas mínimas obligatorias y el Dashboard Alpha estructurado |
+| Sustentación de Capa Visual | `docs/entrega5_dashboard_alpha.md` | Documento unificado de gobierno que integra las justificaciones psicofísicas de diseño, la matriz de gráficos descartados y el set formal de insights de negocio |

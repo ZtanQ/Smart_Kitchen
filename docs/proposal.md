@@ -1,65 +1,53 @@
 # Propuesta del proyecto — Smart Kitchen Intelligence (SKI)
 
 **Curso:** Data Visualization — UPC
-**Entrega:** 1 (semana 3)
+**Entrega:** 5 (Semana 11) — Estado: Documento Maestro Consolidado
 **Equipo:** *(por completar)*
 
 ---
 
 ## 1. Tema del proyecto
 
-Analítica visual para la **gestión de alimentos en una cocina doméstica**,
-con foco en la relación entre perfil nutricional de los productos, patrones
-de uso por ubicación (refrigerador, estantería, despensa) y proximidad al
-vencimiento.
+Analítica visual para la **gestión de alimentos en una cocina doméstica**, con foco en la relación entre perfil nutricional de los productos, patrones de uso por ubicación (refrigerador, estantería, despensa) y proximidad al vencimiento.
 
-El proyecto toma datos reales de productos desde la API de OpenFoodFacts
-y los cruza con un registro simulado de entradas y salidas de cocina, para
-construir un dashboard que permita observar qué se compra, qué se consume,
-qué se queda estancado y qué perfil nutricional tiene el conjunto.
+El proyecto toma datos reales de productos desde la API de OpenFoodFacts y los cruza con un registro simulado de entradas y salidas de cocina, para construir un dashboard que permita observar qué se compra, qué se consume, qué se queda estancado y qué perfil nutricional tiene el conjunto. En esta fase correspondiente a la Entrega 5, el volumen transaccional ha evolucionado hacia el esquema v2 multi-hogar, permitiendo auditar y contrastar de manera interactiva la variabilidad en los hábitos de consumo de 10 núcleos familiares independientes.
 
 ## 2. Pregunta analítica principal
 
 > **¿Cómo evolucionan los puntos críticos de desperdicio y la calidad nutricional del inventario a lo largo de un trimestre, y qué impacto tiene la ubicación física en la pérdida económica y de salud del hogar?**
 
-Esta pregunta es analíticamente compleja porque exige un **análisis longitudinal de 90 días** y un **análisis transversal por ubicación**, cruzando métricas de rotación con perfiles nutricionales (Nutriscore y densidad energética).
+Esta pregunta es analíticamente compleja porque exige un **análisis longitudinal de 90 dían** y un **análisis transversal por ubicación**, cruzando métricas de rotación con perfiles nutricionales (Nutriscore y densidad energética).
 
 ### Subpreguntas derivadas
 
 1. ¿Qué combinaciones de categoría × ubicación generan el mayor tiempo de estancamiento (baja rotación)?
 2. ¿Existe una correlación significativa entre los productos con peor Nutriscore (D-E) y una mayor frecuencia de consumo?
-3. ¿Cuál es el costo de oportunidad acumulado por productos vencidos en ubicaciones de baja visibilidad (ej. "Caja" o fondo de "Despensa")?[cite: 9]
+3. ¿Cuál es el costo de oportunidad acumulado por productos vencidos en ubicaciones de baja visibilidad (ej. "Caja" o fondo de "Despensa")?
 4. ¿Qué perfiles de productos emergen al reducir el espacio nutricional con **PCA o t-SNE** y cómo se comparan con las categorías comerciales?
 
 ## 3. Usuario objetivo y escenario de uso
 
-**Usuario principal:** responsable de compras y planificación de comidas de
-un hogar de 2 a 4 personas, con interés en reducir desperdicio y mejorar el
-perfil nutricional del consumo.
+**Usuario principal:** responsable de compras y planificación de comidas de un hogar de 2 a 4 personas, con interés en reducir desperdicio y mejorar el perfil nutricional del consumo.
 
-**Escenario concreto de uso:** el usuario abre el dashboard una vez por
-semana, antes de hacer la lista de compras. En menos de tres minutos debe
-poder responder:
+**Escenario concreto de uso:** el usuario abre el dashboard una vez por semana, antes de hacer la lista de compras. En menos de tres minutos debe poder responder:
+* ¿Qué categorías estoy comprando más de lo que consumo?
+* ¿Qué ubicación concentra productos próximos a vencer?
+* ¿Mi mix de compras se inclina hacia Nutriscore A–B o D–E?
 
-- ¿Qué categorías estoy comprando más de lo que consumo?
-- ¿Qué ubicación concentra productos próximos a vencer?
-- ¿Mi mix de compras se inclina hacia Nutriscore A–B o D–E?
-
-**Decisión que apoya:** qué productos priorizar, reducir o sustituir en la
-próxima compra, y qué consumir primero esta semana.
+**Decisión que apoya:** qué productos priorizar, reducir o sustituir en la próxima compra, y qué consumir primero esta semana.
 
 ## 4. Fuente de datos propuesta
 
 ### Capa de catálogo — USDA FoodData Central
-- **Origen:** API REST oficial de **USDA FoodData Central**, una fuente de datos abiertos del gobierno de EE. UU. enfocada en la transparencia alimentaria.
-- **Estado:** 50 productos seleccionados con variables nutricionales completas (calorías, proteínas, carbohidratos, grasas)[cite: 9, 11].
-- **Calidad:** Incluye registros con anomalías inyectadas intencionalmente (outliers y nulos) para validar la robustez de las reglas de limpieza en Python.
+* **Origen:** API REST oficial de **USDA FoodData Central**, una fuente de datos abiertos del gobierno de EE. UU. enfocada en la transparencia alimentaria.
+* **Estado:** 50 productos seleccionados con variables nutricionales completas (calorías, proteínas, carbohidratos, grasas).
+* **Calidad:** Incluye registros con anomalías inyectadas intencionalmente (outliers y nulos) para validar la robustez de las reglas de limpieza en Python.
 
 ### Capa de movimientos — Simulación basada en Instacart
-- **Patrones de comportamiento:** La simulación estocástica utiliza el dataset público anonimizado de **Instacart Online Grocery** para replicar distribuciones reales de compra y consumo.
-- **Lógica de desperdicio:** La clasificación de alimentos descartados (`Waste`) se basa en los estándares técnicos de persistencia de la **USDA FoodKeeper App**.
-- **Volumen verificado:** **25,444 registros** generados mediante UUIDs internos (garantizando la ausencia de Información de Identificación Personal o PII).
-- **Temporalidad:** Rango de 90 días para permitir un análisis longitudinal profundo.
+* **Patrones de comportamiento:** La simulación estocástica utiliza el dataset público anonimizado de **Instacart Online Grocery** para replicar distribuciones reales de compra y consumo.
+* **Lógica de desperdicio:** La clasificación de alimentos descartados (`Waste`) se basa en los estándares técnicos de persistencia de la **USDA FoodKeeper App**.
+* **Volumen verificado:** **25,819 registros** transaccionales correspondientes al esquema analítico v2, abarcando las interacciones de 10 hogares independientes.
+* **Temporalidad:** Rango extendido de 90 días cronológicos para permitir un análisis longitudinal profundo y modelar tendencias estacionales.
 
 ## 5. Hipótesis iniciales
 
@@ -72,40 +60,20 @@ próxima compra, y qué consumir primero esta semana.
 
 ## 6. Justificación del valor del proyecto
 
-El desperdicio alimentario en hogares es un problema medible y prevenible,
-pero la mayoría de las personas no tiene visibilidad agregada de sus
-propios patrones de consumo. Un dashboard que cruce rotación, ubicación y
-perfil nutricional permite convertir datos dispersos en decisiones
-semanales concretas, y sirve como prototipo replicable a escala
-(cadenas de retail, bancos de alimentos, estudios de consumo).
+El desperdicio alimentario en hogares es un problema medible y prevenible, pero la mayoría de las personas no tiene visibilidad agregada de sus propios patrones de consumo. Un dashboard que cruce rotación, ubicación y perfil nutricional permite convertir datos dispersos en decisiones semanales concretas, y sirve como prototipo replicable a escala (cadenas de retail, bancos de alimentos, estudios de consumo).
 
-Desde el punto de vista académico, el caso cumple los requisitos del
-curso porque articula: (i) una pregunta analítica real, (ii) dos fuentes
-de naturaleza distinta que exigen integración y perfilado, (iii)
-dimensiones temporales y categóricas fuertes, y (iv) espacio numérico
-suficiente para aplicar PCA o t-SNE de forma no cosmética.
+Desde el punto de vista académico, el caso cumple los requisitos del curso porque articula: (i) una pregunta analítica real, (ii) dos fuentes de naturaleza distinta que exigen integración y perfilado, (iii) dimensiones temporales y categóricas fuertes, y (iv) espacio numérico suficiente para aplicar PCA o t-SNE de forma no cosmética.
 
 ## 7. Justificación de Tableau como herramienta
 
 Tableau es adecuado para este caso por cuatro razones:
 
-1. **Exploración interactiva.** El usuario objetivo necesita filtrar por
-   categoría, ubicación y rango temporal de forma ágil, sin tocar código.
-   Los filtros, parámetros y acciones de Tableau cubren ese requisito sin
-   desarrollo custom.
-2. **Modelo relacional estrella.** La estructura natural del proyecto
-   (dimensión producto + hecho movimientos) se ajusta al modelo de
-   *relationships* que Tableau resuelve bien sin pre-joinear.
-3. **Visualización temporal y comparativa de primera clase.** Series,
-   comparaciones transversales, mapas de calor y pequeños múltiplos
-   están disponibles nativamente, lo que habilita los módulos
-   longitudinal y transversal exigidos por la propuesta.
-4. **Publicación y demo.** Tableau Public permite entregar el dashboard
-   como pieza publicable, cumpliendo el criterio de "producto final
-   presentable" de la Entrega 6.
+1. **Exploración interactiva.** El usuario objetivo necesita filtrar por categoría, ubicación y rango temporal de forma ágil, sin tocar código. Los filtros, parámetros y acciones de Tableau cubren ese requisito sin desarrollo custom.
+2. **Modelo relacional estrella.** La estructura natural del proyecto (dimensión producto + hecho movimientos) se ajusta al modelo de *relationships* que Tableau resuelve bien sin pre-joinear.
+3. **Visualización temporal y comparativa de primera clase.** Series, comparaciones transversales, mapas de calor y pequeños múltiplos están disponibles nativamente, lo que habilita los módulos longitudinal y transversal exigidos por la propuesta.
+4. **Publicación y demo.** Tableau Public permite entregar el dashboard como pieza publicable, cumpliendo el criterio de "producto final presentable" de las entregas finales.
 
-Python queda como soporte de pipeline (perfilado, limpieza, cálculos
-avanzados, PCA / t-SNE), no como capa de visualización final.
+Python queda como soporte de pipeline (perfilado, limpieza, cálculos avanzados, PCA / t-SNE), no como capa de visualización final.
 
 ## 8. Riesgos iniciales de calidad y cobertura
 
@@ -121,6 +89,14 @@ avanzados, PCA / t-SNE), no como capa de visualización final.
 
 ---
 
+## 9. Decisiones Técnicas Consolidadas en Fases Intermedias (Semanas 7 a 11)
+
+* **Control del Fuga de Datos (Data Leakage):** Durante el desarrollo del hito de Machine Learning, se confirmó empíricamente que la variable `dias_para_vencer` actuaba como vector de fuga de información debido a que las etiquetas de descarte se inyectaban en función de sus valores negativos. Se dictaminó su total exclusión del entrenamiento para forzar a los algoritmos (Random Forest y Regresión Logística) a generalizar sobre perfiles nutricionales vectorizados y marcas de tiempo horarias.
+* **Optimización y Ajuste Operativo:** Para balancear la carga del target (~65% consumo productivo vs. ~35% pérdida), se configuró `class_weight='balanced'` y se contrajo el umbral de corte a 0.40, alcanzando una sensibilidad (Recall) superior al 88% en el conjunto de testeo, priorizando la detección preventiva de descomposición alimentaria.
+* **Migración a Modelo en Estrella:** En la capa relacional orientada a Tableau, se descartó el enfoque de tabla plana y se procesó la separación lógica de los 25,819 registros en una tabla de hechos (`fact_inventory`) conectada radialmente a las tablas de dimensiones `Dim_Producto`, `Dim_Hogar` y `Dim_Tiempo`, optimizando las uniones lógicas bajo el motor de cálculo VizQL.
+
+---
+
 ## Anexo — Cobertura de criterios de aprobación Entrega 1
 
 | Criterio de la propuesta del curso | Sección | Estado |
@@ -130,3 +106,14 @@ avanzados, PCA / t-SNE), no como capa de visualización final.
 | Dataset con potencial para temporalidad, segmentación y comparación | §4 | ✅ |
 | Justificación de por qué Tableau es adecuado | §7 | ✅ |
 | Riesgos iniciales de calidad o cobertura identificados | §8 | ✅ |
+
+---
+
+## Anexo B — Cronograma Real y Control de Hitos Académicos (Ajuste Curricular)
+
+Para alinearse con la secuencia real evaluada por la facultad en este periodo lectivo, se formaliza la correspondencia de semanas y entregables del proyecto, dejando establecido el rol de cada hito incremental:
+
+* **Entrega 1 (Semana 3):** Propuesta de proyecto inicial, definición del problema, usuario objetivo y mapeo de riesgos de fuentes base.
+* **Entrega 2 (Semana 5):** Perfilado, diccionario de datos estructurado e implementación del pipeline v2 en Polars con bitácora cuantitativa.
+* **Entrega 3 (Semana 7):** Pipeline experimental de modelado predictivo, validación de data leakage y reporte de métricas optimizadas.
+* **Entrega 4 (Semana 11 - Hito Actual):** Construcción y despliegue del Dashboard Engineering Alpha en Tableau, inyección relacional de Star Schema, matriz formal de descarte de gráficos e insights de negocio de valor agregado.
