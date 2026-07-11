@@ -2,6 +2,7 @@
 preprocessing.py - Pipeline de limpieza y preparacion (Entrega 2, revisado)
 """
 
+import argparse
 import polars as pl
 import json
 import os
@@ -28,16 +29,21 @@ LOCATION_MAP = {
 CALORIE_THRESHOLD = 900
 
 
-def run_preprocessing():
+def run_preprocessing(
+    movements_path="data/raw/movements_raw.csv",
+    catalog_path="data/raw/catalog_raw.csv",
+    output_path="data/interim/inventory_v1.csv",
+    log_path="data/interim/transformations_log.json",
+):
+    """Los defaults reproducen exactamente el comportamiento historico del
+    pipeline (el que genero los data/processed/*.csv y docs/data_dictionary.md
+    documentados). Los parametros existen para poder reutilizar esta misma
+    logica de limpieza sobre otra entrada, ej. el dataset con anomalias
+    inyectadas de notebooks/00_data_pipeline.ipynb, sin duplicar codigo."""
     print("=" * 60)
     print("PIPELINE DE LIMPIEZA --- Smart Kitchen Intelligence")
     print("Ejecucion: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print("=" * 60)
-
-    movements_path = "data/raw/movements_raw.csv"
-    catalog_path   = "data/raw/catalog_raw.csv"
-    output_path    = "data/interim/inventory_v1.csv"
-    log_path       = "data/interim/transformations_log.json"
 
     for p in [movements_path, catalog_path]:
         if not os.path.exists(p):
@@ -139,7 +145,9 @@ def run_preprocessing():
     df_inv = df_inv.select(columnas_finales)
 
     # Guardar
-    os.makedirs("data/interim", exist_ok=True)
+    out_dir = os.path.dirname(output_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     df_inv.write_csv(output_path)
 
     n_final     = len(df_inv)
@@ -255,6 +263,9 @@ def run_preprocessing():
         },
     }
 
+    log_dir = os.path.dirname(log_path)
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
     with open(log_path, "w", encoding="utf-8") as f:
         json.dump(log, f, ensure_ascii=False, indent=2)
 
@@ -266,4 +277,18 @@ def run_preprocessing():
 
 
 if __name__ == "__main__":
-    run_preprocessing()
+    parser = argparse.ArgumentParser(description="Pipeline de limpieza SKI")
+    parser.add_argument("--input", dest="movements_path", default="data/raw/movements_raw.csv",
+                         help="CSV de movimientos a limpiar (default: movements_raw.csv; "
+                              "pasar el CSV con anomalias inyectadas para reusar esta misma "
+                              "logica sobre datos sinteticamente sucios)")
+    parser.add_argument("--catalog", dest="catalog_path", default="data/raw/catalog_raw.csv")
+    parser.add_argument("--output", dest="output_path", default="data/interim/inventory_v1.csv")
+    parser.add_argument("--log", dest="log_path", default="data/interim/transformations_log.json")
+    args = parser.parse_args()
+    run_preprocessing(
+        movements_path=args.movements_path,
+        catalog_path=args.catalog_path,
+        output_path=args.output_path,
+        log_path=args.log_path,
+    )

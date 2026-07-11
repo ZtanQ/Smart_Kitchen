@@ -10,6 +10,11 @@ venv/
 # Tableau
 tableau/*.twb
 !tableau/.gitkeep
+# Excepcion: el workbook canonico SI se versiona (ver tableau/README.md)
+!tableau/Sem12_Dashboard_SmartKitchen.twb
+
+# Artefactos de verificacion de notebooks (regenerados en cada corrida, no versionar)
+data/interim/*_notebook_check.*
 
 # Outputs pesados
 outputs/*.csv

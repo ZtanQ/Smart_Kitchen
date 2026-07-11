@@ -1,31 +1,31 @@
 household_id,segmento_hogar,eje,orden,titulo,mensaje
-0,Eficiente,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 2,865 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-0,Eficiente,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 28.2% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-0,Eficiente,3. Gestion de Salud,3,Calidad nutricional,"16.1% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-1,Crítico,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 3,892 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-1,Crítico,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 38.0% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-1,Crítico,3. Gestion de Salud,3,Calidad nutricional,"20.1% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-2,Crítico,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 5,115 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-2,Crítico,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 42.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-2,Crítico,3. Gestion de Salud,3,Calidad nutricional,"19.2% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-3,Promedio,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 3,612 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-3,Promedio,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 36.3% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-3,Promedio,3. Gestion de Salud,3,Calidad nutricional,"22.5% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-4,Crítico,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 4,354 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-4,Crítico,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 38.9% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-4,Crítico,3. Gestion de Salud,3,Calidad nutricional,"20.3% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-5,Promedio,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 4,024 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-5,Promedio,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 37.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-5,Promedio,3. Gestion de Salud,3,Calidad nutricional,"21.6% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-6,Crítico,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 4,622 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-6,Crítico,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 41.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-6,Crítico,3. Gestion de Salud,3,Calidad nutricional,"15.1% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-7,Promedio,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 3,332 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-7,Promedio,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 34.2% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-7,Promedio,3. Gestion de Salud,3,Calidad nutricional,"19.6% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-8,Eficiente,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 3,080 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-8,Eficiente,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 28.8% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-8,Eficiente,3. Gestion de Salud,3,Calidad nutricional,"16.6% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
-9,Eficiente,1. Mitigacion Financiera,1,Punto ciego,"El Refrigerador concentra S/ 2,672 de mermas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
-9,Eficiente,2. Optimizacion de Compras,2,Ajuste abastecimiento,Tasa desperdicio = 28.0% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo.
-9,Eficiente,3. Gestion de Salud,3,Calidad nutricional,"21.6% del desperdicio es Nutriscore D-E (KPI3), estancamiento -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B."
+0,Eficiente,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 2,865 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+0,Eficiente,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 28.2% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+0,Eficiente,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,16.1% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+1,Crítico,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 3,892 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+1,Crítico,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 38.0% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+1,Crítico,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,20.1% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+2,Crítico,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 5,115 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+2,Crítico,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 42.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+2,Crítico,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,19.2% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+3,Promedio,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 3,612 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+3,Promedio,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 36.3% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+3,Promedio,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,22.5% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+4,Crítico,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 4,354 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+4,Crítico,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 38.9% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+4,Crítico,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,20.3% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+5,Promedio,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 4,024 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+5,Promedio,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 37.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+5,Promedio,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,21.6% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+6,Crítico,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 4,622 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+6,Crítico,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 41.1% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+6,Crítico,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,15.1% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+7,Promedio,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 3,332 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+7,Promedio,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 34.2% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+7,Promedio,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,19.6% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+8,Eficiente,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 3,080 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+8,Eficiente,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 28.8% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+8,Eficiente,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,16.6% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.7 dias (KPI4). Sustituir ultraprocesados por opciones A-B.
+9,Eficiente,1. Mitigacion Financiera,1,Punto ciego de perdida,"El Refrigerador concentra S/ 2,672 de mermas acumuladas (KPI1). Trasladar productos con <10 dias para vencer al Estante de Alta Visibilidad."
+9,Eficiente,2. Optimizacion de Compras,2,Ajuste de abastecimiento,Tasa desperdicio fisico = 28.0% (KPI2). Reducir 15% el volumen de Lacteos y Carnes en el proximo ciclo semanal.
+9,Eficiente,3. Gestion de Salud Familiar,3,Calidad nutricional retenida,21.6% del desperdicio es Nutriscore D-E (KPI3) y estancamiento medio -2.6 dias (KPI4). Sustituir ultraprocesados por opciones A-B.

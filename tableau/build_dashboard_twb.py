@@ -16,8 +16,12 @@ from datetime import datetime
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "datos_finales"
 OUT_TWB = ROOT / "Sem12_Dashboard_SmartKitchen.twb"
-WIN_DATA_DIR = "C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/tableau/datos_finales"
-WIN_OUTPUTS_DIR = "C:/Users/gabri/Documents/Upc/Data Visualization/proyecto-final/outputs"
+# Rutas RELATIVAS a la ubicacion del .twb (portable entre maquinas/usuarios).
+# Tableau resuelve 'directory' de una conexion textscan relativo al archivo .twb
+# cuando no es una ruta absoluta. Requiere abrir el .twb desde tableau/ con
+# datos_finales/ como hermano y outputs/ un nivel arriba (estructura del repo).
+WIN_DATA_DIR = "datos_finales"
+WIN_OUTPUTS_DIR = "../outputs"
 
 
 # ---------------------------------------------------------------------------
@@ -174,8 +178,8 @@ MODEL_DS = {
     "pca_components_tableau": ("pca_components_tableau.csv", [
         ("event_id", "string"), ("household_id", "integer"), ("product_name", "string"),
         ("action_type", "string"), ("category_name", "string"), ("location", "string"),
-        ("nutriscore", "string"), ("PC1", "real"), ("PC2", "real"),
-        ("PC3", "real"), ("PC4", "real"), ("PC5", "real"),
+        ("nutriscore", "string"), ("timestamp", "datetime"), ("dias_para_vencer", "integer"),
+        ("calories_100g", "real"), ("PC1", "real"), ("PC2", "real"), ("PC3", "real"),
     ]),
     "pca_variance_table": ("pca_variance_table.csv", [
         ("componente", "string"), ("varianza_explicada", "real"),
@@ -510,6 +514,127 @@ def build_anex_dashboard():
     return "\n".join(parts)
 
 
+def build_context_dashboard():
+    """Tercera pestana: contexto de gasto (benchmark de industria) + glosario
+    NutriScore. Espeja el contenido agregado al dashboard HTML (Plotly) para
+    que ambos entregables cuenten la misma historia. Es una pestana nueva y
+    autocontenida (no reutiliza zonas de los otros dashboards), para no
+    arriesgar el layout ya validado de 'Smart Kitchen Intelligence'."""
+    parts = []
+    parts.append("    <dashboard enable-sort-zone-taborder='true' name='Contexto y Glosario'>")
+    parts.append("      <style />")
+    parts.append("      <size maxheight='1000' maxwidth='1500' minheight='1000' minwidth='1500' />")
+    parts.append("      <zones>")
+    parts.append("        <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>")
+    parts.append("          <zone-style><format attr='background-color' value='#f7f7fa' /><format attr='margin' value='4' /></zone-style>")
+
+    parts += [
+        "          <zone h='6000' id='10' type-v2='text' w='100000' x='0' y='0'>",
+        "            <zone-style><format attr='background-color' value='#1d2b4f' /><format attr='margin' value='8' /></zone-style>",
+        "            <formatted-text><run bold='true' fontsize='22' fontcolor='#ffffff'>CONTEXTO DE GASTO Y GLOSARIO NUTRISCORE</run></formatted-text>",
+        "          </zone>",
+        "          <zone h='4000' id='11' type-v2='text' w='100000' x='0' y='6000'>",
+        "            <zone-style><format attr='background-color' value='#2a3b6c' /><format attr='margin' value='8' /></zone-style>",
+        "            <formatted-text><run italic='true' fontsize='12' fontcolor='#dfe4f2'>Referencias externas para interpretar la magnitud de la perdida simulada, y guia de lectura de las categorias NutriScore usadas en el resto del dashboard.</run></formatted-text>",
+        "          </zone>",
+    ]
+
+    parts += [
+        "          <zone h='3000' id='20' type-v2='text' w='100000' x='0' y='10000'>",
+        "            <zone-style><format attr='background-color' value='#ffffff' /><format attr='margin' value='4' /></zone-style>",
+        "            <formatted-text><run bold='true' fontsize='13' fontcolor='#1d2b4f'>COMO SE COMPARA ESTA PERDIDA CON LA INDUSTRIA</run></formatted-text>",
+        "          </zone>",
+        "          <zone h='20000' id='30' type-v2='text' w='33000' x='0' y='13000'>",
+        "            <zone-style><format attr='background-color' value='#fde2e2' /><format attr='margin' value='10' /></zone-style>",
+        "            <formatted-text>"
+        "<run bold='true' fontsize='11' fontcolor='#5b6680'>% DEL GASTO EN COMPRAS QUE TERMINA PERDIDO</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontsize='26' fontcolor='#1d2b4f'>17.5%</run><run fontsize='11' fontcolor='#5b6680'>  SKI (este estudio)</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run fontsize='12' fontcolor='#2a2f3a'>vs. 17% de desperdicio de alimentos disponibles a nivel de consumidor, promedio mundial</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run italic='true' fontsize='10' fontcolor='#5b6680'>Fuente: PNUMA/ONU - Food Waste Index Report 2024</run>"
+        "</formatted-text>",
+        "          </zone>",
+        "          <zone h='20000' id='31' type-v2='text' w='33000' x='33000' y='13000'>",
+        "            <zone-style><format attr='background-color' value='#fce7c8' /><format attr='margin' value='10' /></zone-style>",
+        "            <formatted-text>"
+        "<run bold='true' fontsize='11' fontcolor='#5b6680'>ALIMENTOS DESPERDICIADOS POR PERSONA AL ANO EN EL HOGAR</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontsize='26' fontcolor='#1d2b4f'>67 kg</run><run fontsize='11' fontcolor='#5b6680'>  Peru</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run fontsize='12' fontcolor='#2a2f3a'>vs. 79 kg promedio mundial en el hogar</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run italic='true' fontsize='10' fontcolor='#5b6680'>Fuente: FAO Peru - PNUMA/ONU Food Waste Index 2024</run>"
+        "</formatted-text>",
+        "          </zone>",
+        "          <zone h='20000' id='32' type-v2='text' w='34000' x='66000' y='13000'>",
+        "            <zone-style><format attr='background-color' value='#e8eaf2' /><format attr='margin' value='10' /></zone-style>",
+        "            <formatted-text>"
+        "<run bold='true' fontsize='11' fontcolor='#5b6680'>PERDIDA Y DESPERDICIO DE ALIMENTOS EN PERU (TODA LA CADENA)</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontsize='26' fontcolor='#1d2b4f'>12.8 M</run><run fontsize='11' fontcolor='#5b6680'>  toneladas / ano</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run fontsize='12' fontcolor='#2a2f3a'>16% de esa perdida nacional ocurre en el hogar</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run italic='true' fontsize='10' fontcolor='#5b6680'>Fuente: FAO Peru</run>"
+        "</formatted-text>",
+        "          </zone>",
+        "          <zone h='6000' id='33' type-v2='text' w='100000' x='0' y='33000'>",
+        "            <zone-style><format attr='background-color' value='#ffffff' /><format attr='margin' value='6' /></zone-style>",
+        "            <formatted-text><run fontsize='11' fontcolor='#5b6680'>Las cifras de industria son referencias externas (no se calculan de este dataset). El 17.5% de gasto perdido en este estudio simulado es casi identico al 17% mundial, una senal de que las tasas simuladas -calibradas con patrones reales de compra (Instacart) y vida util (USDA FoodKeeper)- son razonables como aproximacion. El dataset no mide hogares peruanos reales.</run></formatted-text>",
+        "          </zone>",
+    ]
+
+    parts += [
+        "          <zone h='3000' id='40' type-v2='text' w='100000' x='0' y='40000'>",
+        "            <zone-style><format attr='background-color' value='#ffffff' /><format attr='margin' value='4' /></zone-style>",
+        "            <formatted-text><run bold='true' fontsize='13' fontcolor='#1d2b4f'>QUE ES EL NUTRISCORE Y COMO SE INTERPRETA</run></formatted-text>",
+        "          </zone>",
+        "          <zone h='16000' id='50' type-v2='text' w='60000' x='0' y='43000'>",
+        "            <zone-style><format attr='background-color' value='#ffffff' /><format attr='margin' value='8' /></zone-style>",
+        "            <formatted-text>"
+        "<run bold='true' fontsize='11' fontcolor='#1d2b4f'>Que es: </run><run fontsize='11' fontcolor='#2a2f3a'>sistema de etiquetado nutricional (OpenFoodFacts) que clasifica alimentos de A (mas saludable) a E (menos saludable), con codigo de color de verde a rojo.</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontsize='11' fontcolor='#1d2b4f'>Como se calcula: </run><run fontsize='11' fontcolor='#2a2f3a'>puntos negativos (energia, azucares, grasas saturadas, sodio) menos puntos positivos (fibra, proteina, fruta/verdura) por 100g/100ml. Puntaje mas bajo = mejor letra.</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontsize='11' fontcolor='#1d2b4f'>En este proyecto: </run><run fontsize='11' fontcolor='#2a2f3a'>el catalogo de 50 productos no incluye grado E (el mas bajo presente es D); 7 productos sin dato se imputaron con la moda del catalogo.</run>"
+        "</formatted-text>",
+        "          </zone>",
+        "          <zone h='16000' id='51' type-v2='text' w='40000' x='60000' y='43000'>",
+        "            <zone-style><format attr='background-color' value='#ffffff' /><format attr='margin' value='8' /></zone-style>",
+        "            <formatted-text>"
+        "<run bold='true' fontcolor='#1e8f4e' fontsize='13'>A</run><run fontsize='11' fontcolor='#2a2f3a'>  Excelente calidad nutricional</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontcolor='#5cb55c' fontsize='13'>B</run><run fontsize='11' fontcolor='#2a2f3a'>  Buena calidad nutricional</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontcolor='#e8a83a' fontsize='13'>C</run><run fontsize='11' fontcolor='#2a2f3a'>  Calidad nutricional media</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontcolor='#e0703a' fontsize='13'>D</run><run fontsize='11' fontcolor='#2a2f3a'>  Calidad nutricional baja</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontcolor='#d64545' fontsize='13'>E</run><run fontsize='11' fontcolor='#2a2f3a'>  Calidad nutricional muy baja (sin productos de este grado en el catalogo)</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run fontsize='1'>&#10;</run>"
+        "<run bold='true' fontcolor='#5cb55c' fontsize='11'>Saludable (A-B)</run><run fontsize='11' fontcolor='#2a2f3a'> = verde en el dashboard  ·  </run>"
+        "<run bold='true' fontcolor='#e8a83a' fontsize='11'>Critico (C-D)</run><run fontsize='11' fontcolor='#2a2f3a'> = ambar</run>"
+        "</formatted-text>",
+        "          </zone>",
+    ]
+
+    parts += [
+        "          <zone h='8000' id='90' type-v2='text' w='100000' x='0' y='92000'>",
+        "            <zone-style><format attr='background-color' value='#e8eaf2' /><format attr='margin' value='6' /></zone-style>",
+        "            <formatted-text><run fontsize='10' fontcolor='#5b6680'>Ver docs/data_dictionary.md y docs/QA_validation.md para el detalle metodologico completo. -- UPC | Data Visualization.</run></formatted-text>",
+        "          </zone>",
+    ]
+
+    parts.append("        </zone>")
+    parts.append("      </zones>")
+    parts.append("      <devicelayouts />")
+    parts.append("    </dashboard>")
+    return "\n".join(parts)
+
+
 def build_twb():
     build_insights_csv()
     ds_blocks = []
@@ -547,6 +672,7 @@ def build_twb():
 
     main_db = build_main_dashboard()
     anex_db = build_anex_dashboard()
+    ctx_db = build_context_dashboard()
 
     hidden_names = [
         "BAN1 - Mermas en Despensa (S/)",
@@ -598,10 +724,12 @@ def build_twb():
         "  <dashboards>\n"
         f"{main_db}\n"
         f"{anex_db}\n"
+        f"{ctx_db}\n"
         "  </dashboards>\n"
         "  <windows source-height='30'>\n"
         "    <window class='dashboard' maximized='true' name='Smart Kitchen Intelligence' />\n"
         "    <window class='dashboard' name='Anexo Metodologico' />\n"
+        "    <window class='dashboard' name='Contexto y Glosario' />\n"
         f"{hidden_xml}\n"
         "  </windows>\n"
         "</workbook>\n"
